@@ -101,6 +101,7 @@ const books = [
     website: 'https://doi.org/10.1007/978-1-4842-4221-6',
   },
 ];
+
 bookRouter.route('/').get((req, res) => {
   res.render('books', {
     nav: [
@@ -111,8 +112,17 @@ bookRouter.route('/').get((req, res) => {
     books,
   });
 });
+
 bookRouter.route('/:id').get((req, res) => {
-  res.send('a single book');
+  const { id } = req.params;
+  res.render('book', {
+    nav: [
+      { link: '/books', title: 'Books' },
+      { link: '/authors', title: 'Authors' },
+    ],
+    title: 'Library',
+    book: books[req.params.id],
+  });
 });
 
 module.exports = bookRouter;
